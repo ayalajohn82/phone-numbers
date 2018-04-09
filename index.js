@@ -3,6 +3,12 @@ const app = express();
 const http = require('http').Server(app);
 const sockets = require('socket.io')(http);
 
+sockets.terminate = function() {
+  Object.keys(sockets.sockets.sockets).forEach(function(s) {
+    sockets.sockets.sockets[s].disconnect(true);
+  });
+};
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
@@ -10,6 +16,9 @@ app.get('/', function(req, res){
 sockets.on('connection', function(socket){
   console.log('a user connected');
   socket.on('phone number', function(number){
+    if(number === 'terminate') {
+      sockets.terminate();
+    }
     console.log('received number:', number)
   });
   socket.on('disconnect', function(){
@@ -20,3 +29,5 @@ sockets.on('connection', function(socket){
 http.listen(4000, function(){
   console.log('listening on *:4000');
 });
+
+
