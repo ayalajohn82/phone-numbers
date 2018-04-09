@@ -1,0 +1,27 @@
+{
+  "name": "phone-numbers",
+  "version": "1.0.0",
+  "description": "Insert phone numbers and have them stored",
+  "main": "index.js",
+  "scripts": {
+    "test": "start",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayalajohn82/phone-numbers.git"
+  },
+  "keywords": [
+    "websockets"
+  ],
+  "author": "John Ayala-Hernandez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ayalajohn82/phone-numbers/issues"
+  },
+  "homepage": "https://github.com/ayalajohn82/phone-numbers#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "http": "0.0.0"
+  }
+}
