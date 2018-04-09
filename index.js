@@ -1,5 +1,3 @@
-import { addNumberToList } from './archiveHelpers';
-
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
@@ -23,7 +21,7 @@ sockets.terminate = function() {
 sockets.isValidNumber = function(number) {
   if(number === 'terminate') {
     this.terminate();
-  } else if(!isNaN(number)) {
+  } else if(isNaN(number)) {
     return false;
   } else if(number.length === 9) {
     return true;
@@ -39,7 +37,12 @@ app.get('/', function(req, res){
 sockets.on('connection', function(socket){
   console.log('a user connected');
   socket.on('phone number', function(number){
-    console.log('received number:', number)
+    console.log('received input:', number)
+    if(sockets.isValidNumber(number)) {
+      archive.addNumber(number);
+    } else {
+      socket.disconnect(true);
+    }
   });
   socket.on('disconnect', function(){
     console.log('user disconnected');
