@@ -1,14 +1,35 @@
+import { addNumberToList } from './archiveHelpers';
+
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const sockets = require('socket.io')(http);
 const archive = require('./archiveHelpers');
 
-// Disconnects all open sockets
+/**
+ * Disconnects all open sockets
+ */
 sockets.terminate = function() {
   Object.keys(sockets.sockets.sockets).forEach(function(s) {
     sockets.sockets.sockets[s].disconnect(true);
   });
+};
+
+/**
+ * validates if number is good for archiving
+ * @param {string} number - number to be validated
+ * @returns {boolean} - whether number is valid
+ */
+sockets.isValidNumber = function(number) {
+  if(number === 'terminate') {
+    this.terminate();
+  } else if(!isNaN(number)) {
+    return false;
+  } else if(number.length === 9) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 app.get('/', function(req, res){
@@ -18,9 +39,6 @@ app.get('/', function(req, res){
 sockets.on('connection', function(socket){
   console.log('a user connected');
   socket.on('phone number', function(number){
-    if(number === 'terminate') {
-      sockets.terminate();
-    }
     console.log('received number:', number)
   });
   socket.on('disconnect', function(){
