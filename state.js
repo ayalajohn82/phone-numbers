@@ -13,11 +13,8 @@ class State {
     }
   }
   
-  incrementTotal() {
+  incrementTotalAndUnique() {
     this.total += 1;
-  }
-
-  incrementUnique() {
     this.unique += 1;
   }
 

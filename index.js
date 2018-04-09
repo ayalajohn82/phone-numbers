@@ -3,6 +3,8 @@ const app = express();
 const http = require('http').Server(app);
 const sockets = require('socket.io')(http);
 const archive = require('./archiveHelpers');
+const State = require('./state');
+const state = new State();
 
 /**
  * Disconnects all open sockets
@@ -40,6 +42,7 @@ sockets.on('connection', function(socket){
     console.log('received input:', number)
     if(sockets.isValidNumber(number)) {
       archive.addNumber(number);
+      state.incrementTotalAndUnique();
     } else {
       socket.disconnect(true);
     }
