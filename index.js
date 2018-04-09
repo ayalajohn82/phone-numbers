@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const sockets = require('socket.io')(http);
+const archive = require('./archiveHelpers');
 
+// Disconnects all open sockets
 sockets.terminate = function() {
   Object.keys(sockets.sockets.sockets).forEach(function(s) {
     sockets.sockets.sockets[s].disconnect(true);
