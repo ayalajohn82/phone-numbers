@@ -5,6 +5,7 @@ module.exports = class State {
     this._total = 0;
     this._unique = 0;
     this._duplicates = 0;
+    this._pNumbers = {};
   }
 
   getState() {
@@ -27,5 +28,14 @@ module.exports = class State {
   resetTemp() {
     this._unique = 0;
     this._duplicates = 0;
+  }
+
+  isDuplicateNumber(number) {
+    if(this._pNumbers.hasOwnProperty(number)) {
+      return true;
+    } else {
+      this._pNumbers[number] = number;
+      return false;
+    }
   }
 }
