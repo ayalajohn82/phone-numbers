@@ -32,6 +32,14 @@ sockets.isValidNumber = function(number) {
   }
 };
 
+/**
+ * Reports state and resets unique and duplicates
+ */
+sockets.report = function() {
+  this.emit('report', state);
+  state.resetTemp();
+};
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
