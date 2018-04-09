@@ -4,8 +4,6 @@ const http = require('http').Server(app);
 const sockets = require('socket.io')(http);
 const archive = require('./archiveHelpers');
 const State = require('./state');
-
-console.log(State);
 const state = new State();
 
 /**
