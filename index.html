@@ -5,6 +5,9 @@
   </head>
   <body>
     <h1>Insert a 9 digit phone number</h1>
+    <h3 id="total"></h3>
+    <h3 id="unique"></h3>
+    <h3 id="duplicates"></h3>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
@@ -18,6 +21,12 @@
           socket.emit('phone number', $('#m').val());
           $('#m').val('');
           return false;
+        });
+        socket.on('report', function(info) {
+          console.log(info.total, info.unique, info.duplicates);
+          $('#total').text('Total: ' + info.total);
+          $('#unique').text('Unique: ' + info.unique);
+          $('#duplicates').text('Duplicates: ' + info.duplicates);
         });
       });
     </script>

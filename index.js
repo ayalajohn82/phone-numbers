@@ -4,6 +4,8 @@ const http = require('http').Server(app);
 const sockets = require('socket.io')(http);
 const archive = require('./archiveHelpers');
 const State = require('./state');
+
+console.log(State);
 const state = new State();
 
 /**
@@ -36,7 +38,7 @@ sockets.isValidNumber = function(number) {
  * Reports state and resets unique and duplicates
  */
 sockets.report = function() {
-  this.emit('report', state);
+  sockets.emit('report', state.getState());
   state.resetTemp();
 };
 
@@ -61,6 +63,7 @@ sockets.on('connection', function(socket){
 });
 
 http.listen(4000, function(){
+  setInterval(sockets.report, 5000);
   console.log('listening on *:4000');
 });
 
