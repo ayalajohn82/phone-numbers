@@ -26,3 +26,18 @@ exports.addNumberToList = function(number) {
     return true;
   });
 }
+
+/**
+ *  Read phone numbers in archive
+ *  Used for dev env
+ */
+exports.readListOfNumbers = function() {
+  fs.readFile(filePath, function(err, data) {
+    if(err) {
+      console.log(err);
+    } else {
+      let phoneNumbers = data.toString().split('\n');
+      console.log('numbers', phoneNumbers);
+    }
+  });
+};
