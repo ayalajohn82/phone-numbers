@@ -15,7 +15,7 @@ exports.init = function() {
  * @param {string} number - phone number being added to archive
  * @returns {boolean} - whether number was added
  */
-exports.addNumberToList = function(number) {
+exports.addNumber = function(number) {
   var writable = number + '\n';
   fs.appendFile('./numbers.log', writable, function(error) {
     if (error) {
@@ -31,7 +31,7 @@ exports.addNumberToList = function(number) {
  *  Read phone numbers in archive
  *  Used for dev env
  */
-exports.readListOfNumbers = function() {
+exports.readNumbers = function() {
   fs.readFile(filePath, function(err, data) {
     if(err) {
       console.log(err);
