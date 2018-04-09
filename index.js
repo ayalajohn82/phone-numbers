@@ -64,6 +64,7 @@ sockets.on('connection', function(socket){
 });
 
 http.listen(4000, function(){
+  archive.init();
   setInterval(sockets.report, 5000);
   console.log('listening on *:4000');
 });
