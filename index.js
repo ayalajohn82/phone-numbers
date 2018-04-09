@@ -25,9 +25,10 @@ sockets.terminate = function() {
 sockets.isValidNumber = function(number) {
   if(number === 'terminate') {
     this.terminate();
-  } else if(isNaN(number)) {
+  } else if(state.isDuplicateNumber(number)) {
+    state.incrementDuplicates();
     return false;
-  } else if(number.length === 9) {
+  } else if(number.length === 9 && !isNaN(number)) {
     return true;
   } else {
     return false;
